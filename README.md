@@ -1,0 +1,2 @@
+# OracleDmpParser
+一个解析出Oracle dmp文件建表和INSERT语句的程序，在解析中文的时候部分中文会有乱码，而且不支持Blob和Clob字段的解析。目前已不在维护。
