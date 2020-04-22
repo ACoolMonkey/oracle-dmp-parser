@@ -128,7 +128,7 @@ public class AnalyzeDmp {
      */
     private static AnalyzeReturnType afterAnalyze() {
         DmpAnalyzeHelper.removeFileCounter();
-        List<Table> valuesList = new ArrayList<Table>(DmpAnalyzeHelper.getTableMap().values());
+        List<Table> valuesList = new ArrayList<>(DmpAnalyzeHelper.getTableMap().values());
         List<Table> returnList = DmpAnalyzeUtils.clone(valuesList);
         DmpAnalyzeHelper.removeTableMap();
         AnalyzeReturnType art = new AnalyzeReturnType();
