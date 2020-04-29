@@ -1,6 +1,7 @@
 package com.hys.odp.util;
 
 import com.hys.odp.model.AnalyzeTypeEnum;
+import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -26,8 +27,8 @@ public class DmpAnalyzeUtils {
      * @param aimFile    目标文件绝对路径
      */
     public static void dmpReadLine(String sourceFile, String aimFile) {
-        RandomAccessFile raf = null;
-        BufferedWriter out = null;
+        @Cleanup RandomAccessFile raf = null;
+        @Cleanup BufferedWriter out = null;
         try {
             raf = new RandomAccessFile(new File(sourceFile), "r");
             // 相对路径，如果没有则要建立一个新的output.txt文件
@@ -42,21 +43,6 @@ public class DmpAnalyzeUtils {
             } while (i != 20000);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            if (raf != null) {
-                try {
-                    raf.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 

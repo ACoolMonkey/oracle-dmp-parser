@@ -8,6 +8,7 @@ import com.hys.odp.service.RealDataAnalyze;
 import com.hys.odp.service.UnDataAnalyze;
 import com.hys.odp.util.DmpAnalyzeHelper;
 import com.hys.odp.util.DmpAnalyzeUtils;
+import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -38,7 +39,7 @@ public class AnalyzeDmp {
     private static final String PATH = "/path.properties";
 
     public AnalyzeDmp(String path) {
-        RandomAccessFile raf = null;
+        @Cleanup RandomAccessFile raf = null;
         try {
             raf = new RandomAccessFile(new File(path), "r");
             // 跳过固定文件头
@@ -62,14 +63,6 @@ public class AnalyzeDmp {
             DmpAnalyzeHelper.accumulateFileCounter();
         } catch (IOException e) {
             throw new RuntimeException(e);
-        } finally {
-            if (raf != null) {
-                try {
-                    raf.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
         }
     }
 
