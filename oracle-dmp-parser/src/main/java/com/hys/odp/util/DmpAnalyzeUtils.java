@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.Arrays;
 
 /**
- * Oracle dump文件解析工具类
+ * Oracle dmp文件解析工具类
  *
  * @author Robert Hou
  * @date 2019年3月21日

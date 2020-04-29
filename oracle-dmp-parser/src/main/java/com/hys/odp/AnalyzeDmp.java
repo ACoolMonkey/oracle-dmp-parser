@@ -81,7 +81,7 @@ public class AnalyzeDmp {
     }
 
     /**
-     * 分析入口（读取指定路径下的所有dump文件）
+     * 分析入口（读取指定路径下的所有dmp文件）
      *
      * @return 解析结果
      */
