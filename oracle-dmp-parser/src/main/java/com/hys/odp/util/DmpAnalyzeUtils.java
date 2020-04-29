@@ -2,6 +2,7 @@ package com.hys.odp.util;
 
 import com.hys.odp.model.AnalyzeTypeEnum;
 import lombok.Cleanup;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.*;
@@ -26,24 +27,21 @@ public class DmpAnalyzeUtils {
      * @param sourceFile 源文件绝对路径
      * @param aimFile    目标文件绝对路径
      */
+    @SneakyThrows
     public static void dmpReadLine(String sourceFile, String aimFile) {
         @Cleanup RandomAccessFile raf = null;
         @Cleanup BufferedWriter out = null;
-        try {
-            raf = new RandomAccessFile(new File(sourceFile), "r");
-            // 相对路径，如果没有则要建立一个新的output.txt文件
-            File writename = new File(aimFile);
-            // 创建新文件
-            writename.createNewFile();
-            out = new BufferedWriter(new FileWriter(writename));
-            int i = 0;
-            do {
-                i++;
-                out.write(raf.readLine() + "\r\n");
-            } while (i != 20000);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        raf = new RandomAccessFile(new File(sourceFile), "r");
+        // 相对路径，如果没有则要建立一个新的output.txt文件
+        File writename = new File(aimFile);
+        // 创建新文件
+        writename.createNewFile();
+        out = new BufferedWriter(new FileWriter(writename));
+        int i = 0;
+        do {
+            i++;
+            out.write(raf.readLine() + "\r\n");
+        } while (i != 20000);
     }
 
     public static long bytesToLong(byte[] value) {

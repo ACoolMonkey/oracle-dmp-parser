@@ -9,6 +9,7 @@ import com.hys.odp.service.UnDataAnalyze;
 import com.hys.odp.util.DmpAnalyzeHelper;
 import com.hys.odp.util.DmpAnalyzeUtils;
 import lombok.Cleanup;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
@@ -38,32 +39,29 @@ public class AnalyzeDmp {
 
     private static final String PATH = "/path.properties";
 
+    @SneakyThrows
     public AnalyzeDmp(String path) {
         @Cleanup RandomAccessFile raf = null;
-        try {
-            raf = new RandomAccessFile(new File(path), "r");
-            // 跳过固定文件头
-            int flag1 = 0x90 * 0x10 + 0xD;
-            raf.seek(flag1);
-            long filePointer = raf.getFilePointer();
-            while (true) {
-                if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.CREATESTATE) {
-                    new CreateStateAnalyze().analyze(raf);
-                } else if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.REALDATA) {
-                    new RealDataAnalyze().analyze(raf);
-                } else if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.UNDATA) {
-                    int breakFlag = new UnDataAnalyze().analyze(raf);
-                    if (breakFlag == 1) {
-                        break;
-                    }
+        raf = new RandomAccessFile(new File(path), "r");
+        // 跳过固定文件头
+        int flag1 = 0x90 * 0x10 + 0xD;
+        raf.seek(flag1);
+        long filePointer = raf.getFilePointer();
+        while (true) {
+            if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.CREATESTATE) {
+                new CreateStateAnalyze().analyze(raf);
+            } else if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.REALDATA) {
+                new RealDataAnalyze().analyze(raf);
+            } else if (DmpAnalyzeHelper.getPatternFlag() == AnalyzeTypeEnum.UNDATA) {
+                int breakFlag = new UnDataAnalyze().analyze(raf);
+                if (breakFlag == 1) {
+                    break;
                 }
             }
-            DmpAnalyzeHelper.remove();
-            // 文件计数+1
-            DmpAnalyzeHelper.accumulateFileCounter();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
+        DmpAnalyzeHelper.remove();
+        // 文件计数+1
+        DmpAnalyzeHelper.accumulateFileCounter();
     }
 
     /**
