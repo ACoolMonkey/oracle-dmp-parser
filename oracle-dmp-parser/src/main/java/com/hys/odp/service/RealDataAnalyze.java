@@ -128,7 +128,7 @@ public class RealDataAnalyze implements BaseAnalyze {
                     } else if (dataTypeName.contains("DATETIME")) {
                         addColumnList(new Column(DmpAnalyzeUtils.parseTimeStamp(columnByteArray)));
                     } else {
-                        throw new IllegalStateException("不识别的类型！需要进行查看！类型：" + dataTypeName);
+                        throw new UnsupportedOperationException("不识别的类型！需要进行查看！类型：" + dataTypeName);
                     }
                     DmpAnalyzeHelper.accumulateDataCountFlag();
                     DmpAnalyzeHelper.clearDataPartFlag();
