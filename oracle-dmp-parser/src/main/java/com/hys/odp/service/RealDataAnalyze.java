@@ -108,8 +108,7 @@ public class RealDataAnalyze implements BaseAnalyze {
                 if (DmpAnalyzeHelper.getDataPartFlag() == columnByteLength) {
                     // 每次读满一个字段的字节 说明读完一个字段
                     String dataTypeName = DmpAnalyzeHelper.getDataTypeList().get(DmpAnalyzeHelper.getDataCountFlag());
-                    if (dataTypeName.contains("NUMBER") || dataTypeName.contains("FLOAT")
-                            || dataTypeName.contains("DOUBLE")) {
+                    if (dataTypeName.contains("NUMBER") || dataTypeName.contains("FLOAT") || dataTypeName.contains("DOUBLE")) {
                         addColumnList(new Column(DmpAnalyzeUtils.parseNumber(columnByteArray)));
                     } else if (dataTypeName.contains("VARCHAR")) {
                         addColumnList(new Column(DmpAnalyzeUtils.parseString(columnByteArray)));

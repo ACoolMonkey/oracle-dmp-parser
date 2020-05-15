@@ -39,8 +39,7 @@ public class CreateStateAnalyze implements BaseAnalyze {
             log.debug("表创建语句：" + DmpAnalyzeHelper.getTableCreateState());
             log.debug("批处理语句：" + batchInsertSql);
         }
-        DmpAnalyzeHelper.setTable(
-                new Table(DmpAnalyzeHelper.getTableState(), DmpAnalyzeHelper.getTableCreateState(), batchInsertSql));
+        DmpAnalyzeHelper.setTable(new Table(DmpAnalyzeHelper.getTableState(), DmpAnalyzeHelper.getTableCreateState(), batchInsertSql));
         DmpAnalyzeHelper.setRowList(DmpAnalyzeHelper.getTable().getRows());
         DmpAnalyzeHelper.setDataTypeList(DmpAnalyzeHelper.getTable().getDataTypeList());
         // 获取数据类型的集合
