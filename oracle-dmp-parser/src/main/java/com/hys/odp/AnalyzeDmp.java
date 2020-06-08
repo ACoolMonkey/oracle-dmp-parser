@@ -86,10 +86,8 @@ public class AnalyzeDmp {
     public static AnalyzeReturnType analyze() {
         log.debug("<<--------------------解析开始-------------------->>");
         // 读取文件路径
-        FileInputStream in;
         Properties p;
-        try {
-            in = new FileInputStream(PATH);
+        try (FileInputStream in = new FileInputStream(PATH)) {
             p = new Properties();
             p.load(in);
         } catch (IOException e) {

@@ -35,7 +35,7 @@ public class Table implements Serializable {
     /**
      * 存储数据类型 集合
      */
-    private ArrayList<String> dataTypeList = new ArrayList<>();
+    private List<String> dataTypeList = new ArrayList<>();
     /**
      * 拼接后的insert语句
      */
