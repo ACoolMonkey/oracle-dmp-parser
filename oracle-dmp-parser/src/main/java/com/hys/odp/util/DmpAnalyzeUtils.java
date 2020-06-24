@@ -2,6 +2,7 @@ package com.hys.odp.util;
 
 import com.hys.odp.model.AnalyzeTypeEnum;
 import lombok.Cleanup;
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
@@ -197,10 +198,7 @@ public class DmpAnalyzeUtils {
      * @return 克隆后的对象
      */
     @SuppressWarnings("unchecked")
-    public static <T> T clone(T obj) {
-        if (obj == null) {
-            throw new RuntimeException("obj为空");
-        }
+    public static <T> T clone(@NonNull T obj) {
         try {
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bout);
