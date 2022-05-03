@@ -48,7 +48,7 @@ public class DmpAnalyzeUtils {
     public static long bytesToLong(byte[] value) {
         long ret = 0;
         for (int i = 0, length = value.length; i < length; i++) {
-            ret += (long) (value[value.length - i - 1] & 0xFF) << (long) (i * 8);
+            ret += (long) (value[value.length - i - 1] & 0xFF) << (i * 8L);
         }
         return ret;
     }
